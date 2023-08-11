@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 
 @Component //토큰의 생성과 유효성 검증
 public class TokenProvider implements InitializingBean {
-
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
     private static final String AUTHORITIES_KEY = "auth";
     private final String secret;
@@ -35,13 +34,11 @@ public class TokenProvider implements InitializingBean {
         this.secret = secret;
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
     }
-
     @Override //빈이 생성이 되고 주입을 받은 후에 secret값을 base64 decode해서 key변수에 할당
     public void afterPropertiesSet() {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
-
     //Authentication객체의 권한정보를 이용해 토큰을 생성
     public String createToken(Authentication authentication) {
         String authorities = authentication.getAuthorities().stream()

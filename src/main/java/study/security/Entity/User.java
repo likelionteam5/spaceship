@@ -38,6 +38,18 @@ public class User {
     @Column(name = "activated")
     private boolean activated;
 
+
+    // 각 뱃지 유무
+    @Column
+    private Boolean KioskBadge ;
+    @Column
+    private Boolean DeliveryBadge;
+    @Column
+    private Boolean SearchingBadge;
+    @Column
+    private Boolean TrainBadge;
+
+
     @ManyToMany
     @JoinTable(
             name = "user_authority",
