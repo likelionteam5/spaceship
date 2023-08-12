@@ -12,6 +12,7 @@ import study.security.Entity.User;
 import study.security.Repository.AuthorityRepository;
 import study.security.Repository.UserRepository;
 import study.security.Util.SecurityUtil;
+import study.security.dto.JoinDto;
 import study.security.dto.UserDto;
 import study.security.exception.DuplicateMemberException;
 import study.security.exception.NotFoundMemberException;
@@ -34,9 +35,13 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto signup(UserDto userDto) {
-        if (userRepository.findOneWithAuthoritiesByUsername(userDto.getUsername()).orElse(null) != null) {
+    public UserDto signup(JoinDto joinDto) {
+        if (userRepository.findOneWithAuthoritiesByUsername(joinDto.getUsername()).orElse(null) != null) {
             throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
+        }
+
+        if (!joinDto.getPassword().equals(joinDto.getCk_password())){
+            throw new DuplicateMemberException("비밀번호가 다릅니다");
         }
 
         Authority authority = Authority.builder()
@@ -45,17 +50,23 @@ public class UserService {
         authorityRepository.save(authority);
 
         User user = User.builder()
-                .username(userDto.getUsername())
-                .password(passwordEncoder.encode(userDto.getPassword()))
-                .name(userDto.getName())
-                .birth(userDto.getBirth())
-                .gender(userDto.getGender())
-                .phoneNumber(userDto.getPhoneNumber())
+                .username(joinDto.getUsername())
+                .password(passwordEncoder.encode(joinDto.getPassword()))
+                .name(joinDto.getName())
+                .birth(joinDto.getBirth())
+                .gender(joinDto.getGender())
+                .phoneNumber(joinDto.getPhoneNumber())
                 .authorities(Collections.singleton(authority))
                 .activated(true)
                 .build();
 
         return UserDto.from(userRepository.save(user));
+    }
+
+    @Transactional(readOnly = true)
+    public Boolean checkUsernameDuplicate(String username){
+        if(userRepository.existsByUsername(username)) return true;
+        return false;
     }
 
     @Transactional(readOnly = true)
