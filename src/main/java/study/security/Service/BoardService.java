@@ -12,5 +12,6 @@ public interface BoardService {
     public void deletePost(Long id);
     public List<BoardRequestDto> searchPosts(String keyword);
     public void update(Long id, BoardRequestDto dto);
+    public List<BoardRequestDto> getLocalBoardList(String region) throws Exception;
 
 }

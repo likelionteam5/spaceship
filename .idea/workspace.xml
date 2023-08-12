@@ -15,7 +15,11 @@
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/study/security/Entity/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/study/security/Entity/User$UserBuilder.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/study/security/Entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/study/security/Entity/User.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/study/security/dto/UserDto$UserDtoBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/study/security/dto/UserDto$UserDtoBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/SecurityConfig.class.uniqueId0" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/study/security/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/Entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/study/security/Jwt/TokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/Jwt/TokenProvider.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/study/security/Repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/Repository/UserRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,8 +46,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -100,6 +104,7 @@
       <workItem from="1691472804940" duration="3716000" />
       <workItem from="1691558914348" duration="11924000" />
       <workItem from="1691643822443" duration="11764000" />
+      <workItem from="1691732595831" duration="10446000" />
     </task>
     <servers />
   </component>

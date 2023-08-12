@@ -19,9 +19,10 @@ import java.util.Optional;
 public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
+
     @Override
-    @Transactional // single Thread, roll back, commit.
-    public void savePost(BoardRequestDto boardDto, String userName) throws Exception {
+    @Transactional
+    public void savePost(BoardRequestDto dto, String userName) throws Exception {
         /* save post가 되기 위한 전제 조건으로는 키오스크 뱃지가 있어야 한다는 것임. */
         /* uninitialized object is attempted to be accessed or modified.
         Essentially, this means the object reference does not
@@ -29,26 +30,49 @@ public class BoardServiceImpl implements BoardService {
         Optional<User>opt = userRepository.findByUsername(userName);
         User user =  opt.orElseThrow(() -> new Exception("userName과 일치하는 유저이름이 없습니다."));
         if(user.getKioskBadge()){
-            boardRepository.save(boardDto.toEntity()); // request를 통해 Entity 객체 생성ㅎ
+            boardRepository.save(dto.toEntity()); // request를 통해 Entity 객체 생성ㅎ
         }else{
             throw new Exception("키오스크 게시글을 작성할 권한이 없습니다");
         }
     }
+
+
+
     @Transactional
     @Override
     public List<BoardRequestDto> getBoardList() {
         List<Board> all = boardRepository.findAll();
-        List<BoardRequestDto>boardDtoList = new ArrayList<>();
+        List<BoardRequestDto>boardList = new ArrayList<>();
         for(Board board : all){
             BoardRequestDto boardDto = BoardRequestDto.builder()
                     .title(board.getTitle())
                     .content(board.getContent())
                     .writer(board.getWriter())
                     .build();
-            boardDtoList.add(boardDto); // request에서 원하는 보드 정보만을 제공
+            boardList.add(boardDto); //request에서 원하는 보드 정보만을 제공
         }
-        return boardDtoList;
+        return boardList;
     }
+
+    @Transactional
+    @Override
+    public List<BoardRequestDto> getLocalBoardList(String region) throws Exception {
+        List<Board> boardList  = boardRepository.findByRegion(region);
+        if(boardList == null || boardList.isEmpty()) throw new Exception("해당 지역에 해당하는 게시들이 없습니다.");
+        List<BoardRequestDto> RequestBoards = new ArrayList<>() ;
+        for(Board board : boardList ){
+            BoardRequestDto Requestboard = BoardRequestDto.builder()
+                    .title(board.getTitle())
+                    .content(board.getContent())
+                    .writer(board.getWriter())
+                    .region(board.getRegion())
+                    .build();
+
+            RequestBoards.add(Requestboard);
+        }
+        return RequestBoards;
+    }
+
     @Transactional
     @Override
     public BoardRequestDto getPost(Long id) {
@@ -56,7 +80,7 @@ public class BoardServiceImpl implements BoardService {
         optional : boardWrapper이다. null point error 가 발생하지 않도록 함.
         null point error 가 발생할 수 있는 위치에 사용하여 npe를 막음.
          */
-        Optional<Board> boardWapper = boardRepository.findById(id);  //static으로 왜 만들죠?
+        Optional<Board> boardWapper = boardRepository.findById(id);
         Board board = boardWapper.get();
 
         return BoardRequestDto.builder()
