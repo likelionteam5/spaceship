@@ -43,4 +43,29 @@ public class BoardService {
         } else
             return null;
     }
+
+    public BoardDTO updateBoard(Long id, BoardDTO updatedBoard) {
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);
+        // 아이디가 존재한다면
+        if(optionalBoardEntity.isPresent()){
+            BoardEntity boardEntity = optionalBoardEntity.get();
+
+            // 업데이트할 제목, 내용이 있다면 갱신
+            if (updatedBoard.getBoardTitle() != null){
+                boardEntity.setBoardTitle(updatedBoard.getBoardTitle());
+            }
+            if(updatedBoard.getBoardContents() != null){
+                boardEntity.setBoardContents(updatedBoard.getBoardContents());
+            }
+
+            // 변경된 내용을 저장
+            boardRepository.save(boardEntity);
+
+            // DTO로 변환하여 반환
+            BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
+            return boardDTO;
+        }else
+            return null;
+
+    }
 }
