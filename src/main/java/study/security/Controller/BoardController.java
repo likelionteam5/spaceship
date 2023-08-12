@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import study.security.Service.BoardService;
 import study.security.dto.BoardDTO;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/train")
@@ -19,7 +21,8 @@ public class BoardController {
     }
 
     @GetMapping("/")
-    public String findAll(){
-
+    public ResponseEntity<List<BoardDTO>> findAll() {
+        List<BoardDTO> boardDTOList = boardService.findAll();
+        return ResponseEntity.ok(boardDTOList);
     }
 }
