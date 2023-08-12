@@ -25,4 +25,11 @@ public class BoardController {
         List<BoardDTO> boardDTOList = boardService.findAll();
         return ResponseEntity.ok(boardDTOList);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<BoardDTO> findById(@PathVariable Long id) {
+        boardService.updateHits(id);
+        boardService.findById(id);
+        return ResponseEntity.ok().build();
+    }
 }
