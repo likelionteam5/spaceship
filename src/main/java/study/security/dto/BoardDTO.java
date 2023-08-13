@@ -2,7 +2,6 @@ package study.security.dto;
 
 
 import lombok.*;
-import study.security.Entity.BaseEntity;
 import study.security.Entity.BoardEntity;
 
 import java.time.LocalDateTime;
@@ -14,11 +13,9 @@ import java.time.LocalDateTime;
 public class BoardDTO {
     private Long id;
     private String boardWriter;
-//    private String boardPass;
     private String boardTitle;
     private String boardContents;
-    private String boardLocal;
-    private int boardHits;
+    private String location;
     private LocalDateTime boardCreatedTime;
     private LocalDateTime boardUpdatedTime;
 
@@ -28,17 +25,17 @@ public class BoardDTO {
         boardDTO.setBoardWriter(boardEntity.getBoardWriter());
         boardDTO.setBoardTitle(boardEntity.getBoardTitle());
         boardDTO.setBoardContents(boardEntity.getBoardContents());
-        boardDTO.setBoardHits(boardEntity.getBoardHits());
+        boardDTO.setLocation(boardEntity.getLocation());
         boardDTO.setBoardCreatedTime(boardEntity.getCreatedTime());
         boardDTO.setBoardUpdatedTime(boardEntity.getUpdatedTime());
         return boardDTO;
     }
 
-    public BoardDTO(Long id, String boardWriter, String boardTitle, int boardHits, LocalDateTime boardCreatedTime) {
+    public BoardDTO(Long id, String boardWriter, String boardTitle, String location, LocalDateTime boardCreatedTime) {
         this.id = id;
         this.boardWriter = boardWriter;
         this.boardTitle = boardTitle;
-        this.boardHits = boardHits;
+        this.location = location;
         this.boardCreatedTime = boardCreatedTime;
     }
 }

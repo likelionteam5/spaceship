@@ -14,27 +14,24 @@ public class BoardEntity extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 25)
+    @Column(length = 20, nullable = false)
     private String boardWriter;
 
-//    @Column
-//    private String boardPass;
-
-    @Column
+    @Column(length = 30, nullable = false)
     private String boardTitle;
 
-    @Column(length = 500)
+    @Column(length = 500, nullable = false)
     private String boardContents;
 
-    @Column
-    private int boardHits;
+    @Column(length = 15, nullable = false)
+    private String location;
 
     public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
         BoardEntity boardEntity = new BoardEntity();
         boardEntity.setBoardWriter(boardDTO.getBoardWriter());
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
-        boardEntity.setBoardHits(0);
+        boardEntity.setLocation(boardDTO.getLocation());
 
         return boardEntity;
     }

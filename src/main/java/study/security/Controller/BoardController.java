@@ -26,18 +26,38 @@ public class BoardController {
         boardService.write(boardDTO);
         return ResponseEntity.ok().build();
     }
-    // 글 조회
-    @GetMapping("/list")
+    // 글 목록 전체 조회
+    @GetMapping("/list/")
     public ResponseEntity<List<BoardDTO>> findAll() {
         List<BoardDTO> boardDTOList = boardService.findAll();
         return ResponseEntity.ok(boardDTOList);
     }
-    // 글 상세 조회
+
+    // 지역별 글 목록 조회
+    @GetMapping("/list/{location}")
+    public ResponseEntity<?> findByLocation(@PathVariable String location){
+        BoardDTO foundBoard = boardService.findByLocation(location);
+        if (foundBoard != null){
+            return ResponseEntity.ok(foundBoard);
+        } else {
+            String message = "조회된 게시물이 없습니다.";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+
+
+    }
+
+    // 글 상세 조회(수정 필요)
     @GetMapping("/{id}")
-    public ResponseEntity<BoardDTO> findById(@PathVariable Long id) {
-        boardService.updateHits(id);
-        boardService.findById(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> findById(@PathVariable Long id) {
+        BoardDTO foundBoard = boardService.findById(id);
+        if (foundBoard != null){
+            return ResponseEntity.ok(foundBoard);
+        } else {
+            String message = "조회된 게시물이 없습니다.";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
+
     }
     // 글 업데이트
     @PutMapping("/{id}")
@@ -45,7 +65,7 @@ public class BoardController {
         BoardDTO updated = boardService.updateBoard(id, updatedBoard);
         return ResponseEntity.ok(updated);
     }
-
+    // 글 삭제
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id) {
         boardService.delete(id);

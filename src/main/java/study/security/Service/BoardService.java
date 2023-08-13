@@ -7,10 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import study.security.Entity.BaseEntity;
 import study.security.Entity.BoardEntity;
 import study.security.Repository.BoardRepository;
 import study.security.dto.BoardDTO;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,9 +35,15 @@ public class BoardService {
         return boardDTOList;
     }
 
-    @Transactional
-    public void updateHits(Long id) {
-        boardRepository.updateHits(id);
+
+    public BoardDTO findByLocation(String location) {
+        Optional<BoardEntity> optionalBoardEntity = boardRepository.findByLocation(location);
+        if(optionalBoardEntity.isPresent()){
+            BoardEntity boardEntity = optionalBoardEntity.get();
+            BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
+            return boardDTO;
+        } else
+            return null;
     }
 
     public BoardDTO findById(Long id) {
@@ -63,6 +71,7 @@ public class BoardService {
             }
 
             // 변경된 내용을 저장
+            boardEntity.setUpdatedTime(LocalDateTime.now());
             boardRepository.save(boardEntity);
 
             // DTO로 변환하여 반환
@@ -85,8 +94,10 @@ public class BoardService {
         Page<BoardEntity> boardEntities =
                 boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
 
-        // 목록: id, writer, title, hits, createdTime
-        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getBoardHits(), board.getCreatedTime()));
+        // 목록: id, writer, title, location, createdTime
+        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getLocation(), board.getCreatedTime()));
         return boardDTOS;
     }
+
+
 }
