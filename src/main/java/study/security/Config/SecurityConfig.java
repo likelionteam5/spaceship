@@ -29,8 +29,6 @@ public class SecurityConfig {
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
 
 
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -42,15 +40,12 @@ public class SecurityConfig {
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 )
 
-
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/hello", "/api/login", "/api/signup").permitAll()
+                        .requestMatchers("/api/hello", "/api/login", "/api/signup").permitAll() // 회원가입, 로그인은 허용
                         .requestMatchers("/security/role_user").hasAuthority("ROLE_USER")
                         .anyRequest().authenticated())
 
-
                 .apply(new JwtSecurityConfig(tokenProvider));
-
 
         return http.build();
     }
@@ -59,5 +54,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
