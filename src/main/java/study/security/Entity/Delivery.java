@@ -8,7 +8,6 @@ import lombok.Setter;
 @Getter @Setter
 public class Delivery {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본키 생성을 DB에 위임
     private Long id;
@@ -20,7 +19,7 @@ public class Delivery {
     private String location; // 지역
 
     @Column(length = 500, nullable = false)
-    private String boardContent; // 내용
+    private String boardContents; // 내용
 
     @Column(length = 20, nullable = false)
     private String boardWriter; // 작성자
