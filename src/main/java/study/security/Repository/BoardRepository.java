@@ -10,4 +10,6 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     List<Board> findByTitleContaining(String keyword);
     void deleteById(Long id);
     List<Board> findByLocation(String location);
+
+    List<Board> findAllByOrderByIdDesc();
 }

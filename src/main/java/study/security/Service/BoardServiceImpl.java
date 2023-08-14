@@ -22,10 +22,10 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
-    private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
-    private static final String AUTHORITIES_KEY = "auth";
+//    private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
+//    private static final String AUTHORITIES_KEY = "auth";
 
-    private Key key;
+//    private Key key;
     @Override
     @Transactional
     public void savePost(BoardRequestDto dto, String userName) throws Exception {
@@ -52,7 +52,7 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     @Override
     public List<BoardResponseDto> getBoardList() {
-        List<Board> all = boardRepository.findAll();
+        List<Board> all = boardRepository.findAllByOrderByIdDesc(); // ID 내립차순으로 가져옴.
         List<BoardResponseDto>boardList = new ArrayList<>();
         for(Board board : all){
             BoardResponseDto resDto = BoardResponseDto.builder()
@@ -70,7 +70,7 @@ public class BoardServiceImpl implements BoardService {
     public List<BoardResponseDto> getLocalBoardList(String location) throws Exception {
         List<Board> boardList  = boardRepository.findByLocation(location);
         if(boardList == null || boardList.isEmpty()) throw new Exception("해당 지역에 해당하는 게시들이 없습니다.");
-        List<BoardResponseDto> ResponseBoard = new ArrayList<>() ;
+        List<BoardResponseDto> ResponseBoard = new ArrayList<>();
         for(Board board : boardList ){
             BoardResponseDto responseDto = BoardResponseDto.builder()
                     .userName(board.getUsername())

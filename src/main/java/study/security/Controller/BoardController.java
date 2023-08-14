@@ -22,6 +22,7 @@ public class BoardController {
     // 전체 키오스크 목록
     @GetMapping("/list")
     public List<BoardResponseDto> kioskList(){
+
         return boardService.getBoardList();
     };
 
