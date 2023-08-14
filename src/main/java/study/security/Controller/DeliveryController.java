@@ -36,11 +36,16 @@ public class DeliveryController {
 
 
     @GetMapping("/list/{location}") // 지역으로 조회
-    public ResponseEntity<Delivery> findByLocation(@PathVariable String location) {
-        Optional<Delivery> delivery = deliveryService.findByLocation(location);
-        return delivery.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<List<Delivery>> findByLocation(@PathVariable String location) {
+        List<Delivery> deliveries = deliveryService.findByLocation(location);
+
+        if (!deliveries.isEmpty()) {
+            return new ResponseEntity<>(deliveries, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
+
 
 
 

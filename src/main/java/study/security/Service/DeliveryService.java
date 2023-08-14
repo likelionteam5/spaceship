@@ -25,7 +25,7 @@ public class DeliveryService {
         return deliveryRepository.findAll();
     }
 
-    public Optional<Delivery> findByLocation(String location) {
+    public List<Delivery> findByLocation(String location) {
         return deliveryRepository.findByLocation(location);
     }
 
