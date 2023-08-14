@@ -2,17 +2,19 @@ package study.security.Service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import study.security.Entity.Board;
 import study.security.Entity.User;
+import study.security.Jwt.TokenProvider;
 import study.security.Repository.BoardRepository;
 import study.security.Repository.UserRepository;
 import study.security.dto.BoardRequestDto;
 import study.security.dto.BoardResponseDto;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.security.Key;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor //생성자 주입을 임의의 annotation 없이 설정해 주는 어노테이션
@@ -20,6 +22,10 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
 
+    private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
+    private static final String AUTHORITIES_KEY = "auth";
+
+    private Key key;
     @Override
     @Transactional
     public void savePost(BoardRequestDto dto, String userName) throws Exception {
@@ -29,55 +35,60 @@ public class BoardServiceImpl implements BoardService {
         point anywhere and has a null value. */
         Optional<User>opt = userRepository.findByUsername(userName);
         User user =  opt.orElseThrow(() -> new Exception("userName과 일치하는 유저이름이 없습니다."));
+        Board board = Board.builder()
+                .username(userName)
+                .title(dto.getTitle())
+                .content(dto.getContent())
+                .location(dto.getLocation())
+                .build();
+        user.setKioskBadge(true); // 임의로 뱃지 부여
         if(user.getKioskBadge()){
-            boardRepository.save(dto.toEntity()); // request를 통해 Entity 객체 생성ㅎ
+            boardRepository.save(board); // request를 통해 Entity 객체 생성
         }else{
             throw new Exception("키오스크 게시글을 작성할 권한이 없습니다");
         }
     }
 
-
-
     @Transactional
     @Override
-    public List<BoardRequestDto> getBoardList() {
+    public List<BoardResponseDto> getBoardList() {
         List<Board> all = boardRepository.findAll();
-        List<BoardRequestDto>boardList = new ArrayList<>();
+        List<BoardResponseDto>boardList = new ArrayList<>();
         for(Board board : all){
-            BoardRequestDto boardDto = BoardRequestDto.builder()
-                    .title(board.getTitle())
+            BoardResponseDto resDto = BoardResponseDto.builder()
                     .content(board.getContent())
-                    .writer(board.getWriter())
+                    .title(board.getTitle())
+                    .userName(board.getUsername())
+                    .location(board.getLocation())
                     .build();
-            boardList.add(boardDto); //request에서 원하는 보드 정보만을 제공
+            boardList.add(resDto);
         }
         return boardList;
     }
-
     @Transactional
     @Override
-    public List<BoardRequestDto> getLocalBoardList(String region) throws Exception {
-        List<Board> boardList  = boardRepository.findByRegion(region);
+    public List<BoardResponseDto> getLocalBoardList(String location) throws Exception {
+        List<Board> boardList  = boardRepository.findByLocation(location);
         if(boardList == null || boardList.isEmpty()) throw new Exception("해당 지역에 해당하는 게시들이 없습니다.");
-        List<BoardRequestDto> RequestBoards = new ArrayList<>() ;
+        List<BoardResponseDto> ResponseBoard = new ArrayList<>() ;
         for(Board board : boardList ){
-            BoardRequestDto Requestboard = BoardRequestDto.builder()
+            BoardResponseDto responseDto = BoardResponseDto.builder()
+                    .userName(board.getUsername())
                     .title(board.getTitle())
-                    .content(board.getContent())
-                    .writer(board.getWriter())
-                    .region(board.getRegion())
+                    .content(board.getUsername())
+                    .location(board.getLocation())
                     .build();
 
-            RequestBoards.add(Requestboard);
+            ResponseBoard.add(responseDto);
         }
-        return RequestBoards;
+        return ResponseBoard;
     }
 
     @Transactional
     @Override
     public BoardRequestDto getPost(Long id) {
         /*
-        optional : boardWrapper이다. null point error 가 발생하지 않도록 함.
+        optional : board Wrapper이다. null point error 가 발생하지 않도록 함.
         null point error 가 발생할 수 있는 위치에 사용하여 npe를 막음.
          */
         Optional<Board> boardWapper = boardRepository.findById(id);
@@ -85,8 +96,7 @@ public class BoardServiceImpl implements BoardService {
 
         return BoardRequestDto.builder()
                 .title(board.getTitle())
-                .content(board.getContent())
-                .writer(board.getWriter())
+                .content(board.getUsername())
                 .build();
     }
     @Transactional
@@ -97,31 +107,33 @@ public class BoardServiceImpl implements BoardService {
 
     @Transactional
     @Override
-    public List<BoardRequestDto> searchPosts(String keyword) {
+    public List<BoardResponseDto> searchPosts(String keyword) {
         List<Board> boards = boardRepository.findByTitleContaining(keyword);
-        List<BoardRequestDto> boardList = new ArrayList<>();
+        List<BoardResponseDto> boardList = new ArrayList<>();
 
         for(Board board : boards){
-            BoardRequestDto build = BoardRequestDto.builder()
-                    .title(board.getTitle())
-                    .content(board.getContent())
-                    .writer(board.getWriter())
-                    .region(board.getRegion())
-                    .build();
-            boardList.add(build);
+                BoardResponseDto resDto = BoardResponseDto.builder()
+                        .title(board.getTitle())
+                        .content(board.getContent())
+                        .location(board.getLocation())
+                        .userName(board.getUsername())
+                        .build();
+
+                boardList.add(resDto);
         }
         return boardList;
     }
-    @Transactional
-    @Override
-    public void update(Long id, BoardRequestDto dto) {
-        Optional<Board> byId = boardRepository.findById(id);
-        Board board = byId.get();
-
-        board.setTitle(dto.getTitle());
-        board.setContent(dto.getContent());
-        board.setRegion(dto.getRegion());
-        //네, save 메서드를 사용할 때 JPA는 해당 엔티티의 ID 값에 따라 업데이트 또는 신규 생성을 결정합니다.
-        boardRepository.save(board);
-    }
+//    @Transactional
+//    @Override // 보드 수정
+//    public void update(Long id, BoardRequestDto dto) {
+//        Optional<Board> byId = boardRepository.findById(id);
+//        Board board = byId.get();
+//
+//        board.setBoard_title(dto.getTitle());
+//        board.setBoard_content(dto.getContent());
+//        board.setBoard_region(dto.getRegion());
+//        //네, save 메서드를 사용할 때 JPA는 해당 엔티티의 ID 값에 따라 업데이트 또는 신규 생성을 결정합니다.
+//        boardRepository.save(board);
+//    }
 }
+

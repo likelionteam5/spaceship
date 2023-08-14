@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board,Long> {
     List<Board> findByTitleContaining(String keyword);
-    List<Board> findByRegion(String region);
+    void deleteById(Long id);
+    List<Board> findByLocation(String location);
 }

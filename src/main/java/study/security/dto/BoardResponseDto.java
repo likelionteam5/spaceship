@@ -11,11 +11,11 @@ import lombok.*;
 @AllArgsConstructor
 public class BoardResponseDto {
 
-    private String writer;
+    private String userName;
 
     private String title;
 
     private String content;
 
-    private String region;
+    private String location;
 }

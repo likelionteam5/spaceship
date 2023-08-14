@@ -2,36 +2,25 @@ package study.security.dto;
 
 import lombok.*;
 import study.security.Entity.Board;
+import study.security.Jwt.TokenProvider;
 
 @Getter
 @Setter
-@Builder
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class BoardRequestDto {
-    private Long id;
-    private String writer;
+public final class BoardRequestDto {
+//    private String userName;
     private String title;
     private String content;
-    private String region;
+    private String location;
 
     @Builder //객체 생성을 위한 패턴. 필드 순서에 상환 없음.
-    public BoardRequestDto(String writer, String title, String content, String retgion)
+    public BoardRequestDto(String title, String content, String location, TokenProvider tokenProvider)
     {
-        this.writer = writer;
         this.title = title;
         this.content = content;
-        this.region = region;
-    }
+        this.location = location ;
 
-    public Board toEntity() {
-        return Board.builder()
-                .writer(this.writer)
-                .title(this.title)
-                .content(this.content)
-                .region(this.region)
-                .build();
     }
 
 }

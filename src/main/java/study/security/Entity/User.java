@@ -17,13 +17,14 @@ import java.util.Set;
 @AllArgsConstructor
 public class User {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private Long userId;
+    private Long userId; //Id
 
     @Column(length = 25)
-    private String username;
+    private String username; // 로그인 하는 아이디
     @Column(length = 200)
     private String password;
     @Column(length = 20)
@@ -41,13 +42,13 @@ public class User {
 
     // 각 뱃지 유무
     @Column
-    private Boolean KioskBadge ;
+    private Boolean KioskBadge=true ;
     @Column
-    private Boolean DeliveryBadge;
+    private Boolean DeliveryBadge=true;
     @Column
-    private Boolean SearchingBadge;
+    private Boolean SearchingBadge=true;
     @Column
-    private Boolean TrainBadge;
+    private Boolean TrainBadge=true;
 
 
     @ManyToMany
