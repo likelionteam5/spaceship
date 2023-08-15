@@ -36,15 +36,19 @@ public class BoardService {
     }
 
 
-    public BoardDTO findByLocation(String location) {
-        Optional<BoardEntity> optionalBoardEntity = boardRepository.findByLocation(location);
-        if(optionalBoardEntity.isPresent()){
-            BoardEntity boardEntity = optionalBoardEntity.get();
-            BoardDTO boardDTO = BoardDTO.toBoardDTO(boardEntity);
-            return boardDTO;
-        } else
+    public List<BoardDTO> findByLocation(String location) {
+        List<BoardEntity> boardEntities = boardRepository.findByLocation(location);
+        List<BoardDTO> boardDTOList = new ArrayList<>();
+        if (!boardEntities.isEmpty()) {
+            for (BoardEntity boardEntity : boardEntities) {
+                boardDTOList.add(BoardDTO.toBoardDTO(boardEntity));
+            }
+            return boardDTOList;
+        } else {
             return null;
+        }
     }
+
 
     public BoardDTO findById(Long id) {
         Optional<BoardEntity> optionalBoardEntity = boardRepository.findById(id);

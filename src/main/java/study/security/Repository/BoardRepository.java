@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import study.security.Entity.BoardEntity;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
-    Optional<BoardEntity> findByLocation(String location);
+    List<BoardEntity> findByLocation(String location);
     // update board_table ser board_hits=board_hits+1 where id=?
 //    @Modifying
 //    @Query(value = "update BoardEntity b set b.location=b.location+1 where  b.id=:id")

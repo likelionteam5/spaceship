@@ -36,7 +36,7 @@ public class BoardController {
     // 지역별 글 목록 조회
     @GetMapping("/list/{location}")
     public ResponseEntity<?> findByLocation(@PathVariable String location){
-        BoardDTO foundBoard = boardService.findByLocation(location);
+        List<BoardDTO> foundBoard = boardService.findByLocation(location);
         if (foundBoard != null){
             return ResponseEntity.ok(foundBoard);
         } else {
@@ -47,7 +47,7 @@ public class BoardController {
 
     }
 
-    // 글 상세 조회(수정 필요)
+
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         BoardDTO foundBoard = boardService.findById(id);
