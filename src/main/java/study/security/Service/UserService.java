@@ -12,6 +12,7 @@ import study.security.Repository.AuthorityRepository;
 import study.security.Repository.UserRepository;
 import study.security.Util.SecurityUtil;
 import study.security.dto.UserDto;
+import study.security.dto.MyPageDto;
 import study.security.exception.DuplicateMemberException;
 import study.security.exception.NotFoundMemberException;
 
@@ -70,4 +71,19 @@ public class UserService {
                         .orElseThrow(() -> new NotFoundMemberException("Member not found"))
         );
     }
+    public MyPageDto getUserProfile(Long userId) {
+        User user = userRepository.findByUserId(userId);
+
+        if (user != null) {
+            MyPageDto userProfileDTO = new MyPageDto();
+            userProfileDTO.setName(user.getName());
+            userProfileDTO.setBirth(user.getBirth());
+            userProfileDTO.setGender(user.getGender());
+            return userProfileDTO;
+        } else {
+            return null; // 사용자가 없는 경우에 대한 처리
+        }
+    }
+
+
 }

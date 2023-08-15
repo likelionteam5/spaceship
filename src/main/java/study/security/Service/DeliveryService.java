@@ -16,7 +16,6 @@ public class DeliveryService {
     private DeliveryRepository deliveryRepository;
 
 
-
     public Delivery createDelivery(Delivery delivery) {
         return deliveryRepository.save(delivery);
     }

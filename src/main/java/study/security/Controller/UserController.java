@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import study.security.Service.UserService;
 import study.security.dto.UserDto;
+import study.security.dto.MyPageDto;
 
 import java.io.IOException;
 
@@ -28,9 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> signup(
-            @Valid @RequestBody UserDto userDto
-    ) {
+    public ResponseEntity<UserDto> signup(@Valid @RequestBody UserDto userDto) {
         return ResponseEntity.ok(userService.signup(userDto));
     }
 
@@ -44,5 +43,10 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<UserDto> getUserInfo(@PathVariable String username) {
         return ResponseEntity.ok(userService.getUserWithAuthorities(username));
+    }
+
+    @GetMapping("/myPage/{user_id}") // 마이페이지
+    public MyPageDto getUserProfile(@PathVariable("user_id") Long userId) {
+        return userService.getUserProfile(userId);
     }
 }

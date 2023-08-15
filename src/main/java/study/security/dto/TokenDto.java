@@ -2,7 +2,7 @@ package study.security.dto;
 
 import lombok.*;
 
-//token정보 response
+//token 정보 response
 @Getter
 @Setter
 @Builder
