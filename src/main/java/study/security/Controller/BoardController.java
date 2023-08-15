@@ -29,7 +29,6 @@ public class BoardController {
         boardService.savePost(reqDto,username);
         return "redirect:/kiosk/list"; //prg _ 게시물 전체 목록으로 리다이렉트
     }
-
     //전체 키오스크 목록
     @GetMapping("/list")
     public List<BoardResponseDto> kioskList(){
@@ -48,8 +47,7 @@ public class BoardController {
         return boardService.getPost(id);
     }
 
-
-   //  키오스크 게시물 수정 _ 리다이렉트 생각해보기
+    //  키오스크 게시물 수정 _ 리다이렉트 생각해보기
 //    @PatchMapping("/{id}")
 //    public void kioskBoardModify(@PathVariable(name="id") Long id, @RequestBody @Valid BoardRequestDto reqDto){
 //        boardService.update(id,reqDto);
@@ -61,7 +59,6 @@ public class BoardController {
         boardService.deletePost(id);
         return "redirect:/kiosk/list";
     }
-
     // 키오스크 게시물 검색 _ 제목 키워드 기반_Board request Dto를 반환하는게 맞는지 생각해보자. 일단 내 생각에는 responseDto를 반환하는게 맞음.
     @GetMapping("/search")
     public List<BoardResponseDto> kioskBoardSearching(@RequestParam("keyword") String keyword){

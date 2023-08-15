@@ -15,21 +15,21 @@ public class TestController {
     private final TokenProvider tokenProvider;
     @PostMapping("/kiosk/test/badge")
     public void giveKioskBadge(@RequestParam("pass")Boolean pass, @RequestHeader("Authorization") String token) throws Exception {
-        String username = tokenProvider.getUsernameFromToken(token);
+        String username = tokenProvider.getUsernameFromToken(token.substring(7));
         if(pass){
             testService.giveKioskBadge(username);
         }else throw new Exception("시험에 통과하지 못했습니다.");
     }
     @PostMapping("/kiosk/train/badge")
     public void giveTrainBadge(@RequestParam("pass")Boolean pass, @RequestHeader("Authorization") String token) throws Exception {
-        String username = tokenProvider.getUsernameFromToken(token);
+        String username = tokenProvider.getUsernameFromToken(token.substring(7));
         if(pass){
             testService.giveTrainBadge(username);
         }else throw new Exception("시험에 통과하지 못했습니다.");
     }
     @PostMapping("/kiosk/delivery/badge")
     public void giveDeliveryBadge(@RequestParam("pass")Boolean pass, @RequestHeader("Authorization") String token)  throws Exception {
-        String username = tokenProvider.getUsernameFromToken(token);
+        String username = tokenProvider.getUsernameFromToken(token.substring(7));
         if(pass){
             testService.giveDeliveryBadge(username);
         }else throw new Exception("시험에 통과하지 못했습니다.");

@@ -12,11 +12,14 @@ import study.security.Entity.User;
 import study.security.Repository.AuthorityRepository;
 import study.security.Repository.UserRepository;
 import study.security.Util.SecurityUtil;
+import study.security.dto.MypageResponseDto;
 import study.security.dto.UserDto;
 import study.security.exception.DuplicateMemberException;
 import study.security.exception.NotFoundMemberException;
 
 import java.util.Collections;
+import java.util.Optional;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -31,6 +34,22 @@ public class UserService {
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @Transactional
+    public MypageResponseDto showMypage(String username) throws Exception {
+        Optional<User> opt = userRepository.findByUsername(username);
+        User user = opt.orElseThrow(()->new Exception("존재하지 않는 username 입니다."));
+
+        return MypageResponseDto.builder()
+                .deliveryBadge(user.getDeliveryBadge())
+                .kioskBadge(user.getKioskBadge())
+                .trainBadge(user.getTrainBadge())
+                .gender(user.getGender())
+                .birth(user.getBirth())
+                .name(user.getName())
+                .build();
+
     }
 
     @Transactional
