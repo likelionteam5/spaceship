@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 import study.security.Entity.Delivery;
 import study.security.Repository.DeliveryRepository;
 import study.security.Service.DeliveryService;
@@ -27,6 +28,7 @@ public class DeliveryController {
         Delivery createdDelivery = deliveryService.createDelivery(delivery);
         return new ResponseEntity<>(createdDelivery, HttpStatus.CREATED);
     }
+
 
     @GetMapping("/list") // 전체 게시물 조회
     public ResponseEntity<List<Delivery>> getAllDeliveries() {
@@ -70,14 +72,14 @@ public class DeliveryController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-// return "redirect:delivery/list";
 
     @DeleteMapping("/{id}") // 게시물 삭제
-    public ResponseEntity<String> deleteDelivery(@PathVariable Long id) {
+    public RedirectView deleteDelivery(@PathVariable Long id) {
         if (deliveryRepository.existsById(id)) {
             deliveryRepository.deleteById(id);
-            return new ResponseEntity<>("글 삭제 완료", HttpStatus.OK);
         }
-        return new ResponseEntity<>("삭제할 게시물을 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+        return new RedirectView("/delivery/list");
     }
 }
+
+// return "redirect:delivery/list" (삭제, 작성)
