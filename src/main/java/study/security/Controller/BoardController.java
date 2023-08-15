@@ -34,8 +34,8 @@ public class BoardController {
 
     // 키오스크 게시물 상세 조회
     @GetMapping("/{id}")
-    public Board kioskBoardDetail(@PathVariable(name = "id") Long id) {
-        return null;
+    public BoardResponseDto kioskBoardDetail(@PathVariable(name = "id") Long id) {
+        return boardService.getPost(id);
     }
 
     //키오스크 게시물 작성
@@ -44,8 +44,8 @@ public class BoardController {
     public String saveBoard (@RequestBody BoardRequestDto reqDto,@RequestHeader(name="Authorization") String token) throws Exception {
 //        String userName =tokenProvider.getUsernameFromToken(token); // 토큰에서 유저 파싱하고
 //        System.out.println(userName + "파싱 성공");
-        User user = tokenProvider.getUser(token);
-        boardService.savePost(reqDto,user.getUsername());
+        String username = tokenProvider.getUsernameFromToken(token.substring(7));
+        boardService.savePost(reqDto,username);
         return "redirect:/kiosk/list"; //prg _ 게시물 전체 목록으로 리다이렉트
     }
 

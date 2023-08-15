@@ -78,20 +78,21 @@ public class TokenProvider implements InitializingBean {
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
-    public User getUser(String token){
-        Claims claims = Jwts
-                .parserBuilder()
-                .setSigningKey(key)
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+    public String getUsernameFromToken(String token) {
+        try {
+            Claims claims = Jwts
+                    .parserBuilder()
+                    .setSigningKey(key)
+                    .build()
+                    .parseClaimsJws(token)
+                    .getBody();
 
-        Collection<? extends GrantedAuthority> authorities =
-                Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
-                        .map(SimpleGrantedAuthority::new)
-                        .collect(Collectors.toList());
-
-        return  new User(claims.getSubject(), "", authorities);
+            return claims.getSubject();
+        } catch (JwtException e) {
+            // Handle JWT parsing exceptions
+            // For example, you might want to log the error and return null
+            return null;
+        }
     }
 
     //토큰의 유효성 검증

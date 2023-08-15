@@ -2,18 +2,14 @@ package study.security.Service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import study.security.Entity.Board;
 import study.security.Entity.User;
-import study.security.Jwt.TokenProvider;
 import study.security.Repository.BoardRepository;
 import study.security.Repository.UserRepository;
 import study.security.dto.BoardRequestDto;
 import study.security.dto.BoardResponseDto;
 
-import java.security.Key;
 import java.util.*;
 
 @Service
@@ -68,7 +64,7 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     @Override
     public List<BoardResponseDto> getLocalBoardList(String location) throws Exception {
-        List<Board> boardList  = boardRepository.findByLocation(location);
+        List<Board> boardList = boardRepository.findByLocation(location);
         if(boardList == null || boardList.isEmpty()) throw new Exception("해당 지역에 해당하는 게시들이 없습니다.");
         List<BoardResponseDto> ResponseBoard = new ArrayList<>();
         for(Board board : boardList ){
@@ -86,17 +82,18 @@ public class BoardServiceImpl implements BoardService {
 
     @Transactional
     @Override
-    public BoardRequestDto getPost(Long id) {
+    public BoardResponseDto getPost(Long id) {
         /*
         optional : board Wrapper이다. null point error 가 발생하지 않도록 함.
         null point error 가 발생할 수 있는 위치에 사용하여 npe를 막음.
          */
-        Optional<Board> boardWapper = boardRepository.findById(id);
-        Board board = boardWapper.get();
+        Optional<Board> opt = boardRepository.findById(id);
+        Board board = opt.get();
 
-        return BoardRequestDto.builder()
+        return BoardResponseDto.builder()
                 .title(board.getTitle())
                 .content(board.getUsername())
+                .userName(board.getUsername())
                 .build();
     }
     @Transactional

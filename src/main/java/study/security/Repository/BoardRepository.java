@@ -11,5 +11,6 @@ public interface BoardRepository extends JpaRepository<Board,Long> {
     void deleteById(Long id);
     List<Board> findByLocation(String location);
 
+
     List<Board> findAllByOrderByIdDesc();
 }
