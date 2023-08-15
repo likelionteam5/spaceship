@@ -16,7 +16,6 @@ public class DeliveryDto {
 
     private Long id;
     private String location;
-    private String boardWriter;
     private String boardTitle;
     private String boardContents;
 
@@ -24,7 +23,6 @@ public class DeliveryDto {
     private LocalDateTime boardUpdatedTime;
 
     public Delivery toDeliveryEntity(Delivery delivery) {
-        delivery.setBoardWriter(this.getBoardWriter());
         delivery.setBoardTitle(this.getBoardTitle());
         delivery.setLocation(this.getLocation());
         delivery.setBoardContents(this.getBoardContents());

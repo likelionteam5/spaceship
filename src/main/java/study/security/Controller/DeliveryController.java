@@ -47,15 +47,12 @@ public class DeliveryController {
     }
 
 
-
-
     @GetMapping("/{id}") // 게시물 상세 조회
     public ResponseEntity<Delivery> getDeliveryById(@PathVariable Long id) {
         Optional<Delivery> delivery = deliveryService.getDeliveryById(id);
         return delivery.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
-
 
 
     @PatchMapping("/{id}") // 게시물 일부 수정
@@ -73,6 +70,7 @@ public class DeliveryController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+// return "redirect:delivery/list";
 
     @DeleteMapping("/{id}") // 게시물 삭제
     public ResponseEntity<String> deleteDelivery(@PathVariable Long id) {

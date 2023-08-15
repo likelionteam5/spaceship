@@ -20,7 +20,4 @@ public class Delivery {
 
     @Column(length = 500, nullable = false)
     private String boardContents; // 내용
-
-    @Column(length = 20, nullable = false)
-    private String boardWriter; // 작성자
 }
