@@ -19,8 +19,6 @@ public final class BoardRequestDto {
     {
         this.title = title;
         this.content = content;
-        this.location = location ;
-
+        this.location = location;
     }
-
 }

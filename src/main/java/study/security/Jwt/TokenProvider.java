@@ -77,7 +77,6 @@ public class TokenProvider implements InitializingBean {
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
-
     public String getUsernameFromToken(String token) {
         try {
             Claims claims = Jwts

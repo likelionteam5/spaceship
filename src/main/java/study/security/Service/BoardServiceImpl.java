@@ -48,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
     @Transactional
     @Override
     public List<BoardResponseDto> getBoardList() {
-        List<Board> all = boardRepository.findAllByOrderByIdDesc(); // ID 내립차순으로 가져옴.
+        List<Board> all = boardRepository.findAllByOrderByIdDesc(); //ID 내림차순으로 가져옴. _ 최신순
         List<BoardResponseDto>boardList = new ArrayList<>();
         for(Board board : all){
             BoardResponseDto resDto = BoardResponseDto.builder()
@@ -62,7 +62,7 @@ public class BoardServiceImpl implements BoardService {
         return boardList;
     }
     @Transactional
-    @Override
+    @Override   // 최신순으로 수정
     public List<BoardResponseDto> getLocalBoardList(String location) throws Exception {
         List<Board> boardList = boardRepository.findByLocation(location);
         if(boardList == null || boardList.isEmpty()) throw new Exception("해당 지역에 해당하는 게시들이 없습니다.");
@@ -121,13 +121,13 @@ public class BoardServiceImpl implements BoardService {
         return boardList;
     }
 //    @Transactional
-//    @Override // 보드 수정
+//    // 보드 수정
 //    public void update(Long id, BoardRequestDto dto) {
 //        Optional<Board> byId = boardRepository.findById(id);
 //        Board board = byId.get();
 //
-//        board.setBoard_title(dto.getTitle());
-//        board.setBoard_content(dto.getContent());
+//        board.setTitle(dto.getTitle());
+//        board.set(dto.getContent());
 //        board.setBoard_region(dto.getRegion());
 //        //네, save 메서드를 사용할 때 JPA는 해당 엔티티의 ID 값에 따라 업데이트 또는 신규 생성을 결정합니다.
 //        boardRepository.save(board);
