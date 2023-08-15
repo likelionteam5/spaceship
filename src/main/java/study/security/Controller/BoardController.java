@@ -2,6 +2,7 @@ package study.security.Controller;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import study.security.Entity.Board;
 import study.security.Jwt.TokenProvider;
@@ -22,14 +23,13 @@ public class BoardController {
     // 전체 키오스크 목록
     @GetMapping("/list")
     public List<BoardResponseDto> kioskList(){
-
         return boardService.getBoardList();
     };
 
     // 키오스크 목록 _ 지역 기반_ 페이징 처리 아직 안함.
     @GetMapping("/list/{location}")
     public List<BoardResponseDto> kioskListLoc(@PathVariable(name="location") String location) throws Exception {
-        return boardService.getLocalBoardList(location);
+         return boardService.getLocalBoardList(location);
     }
 
     // 키오스크 게시물 상세 조회
@@ -44,8 +44,8 @@ public class BoardController {
     public String saveBoard (@RequestBody BoardRequestDto reqDto,@RequestHeader(name="Authorization") String token) throws Exception {
 //        String userName =tokenProvider.getUsernameFromToken(token); // 토큰에서 유저 파싱하고
 //        System.out.println(userName + "파싱 성공");
-
-        boardService.savePost(reqDto, "yejin1");
+        User user = tokenProvider.getUser(token);
+        boardService.savePost(reqDto,user.getUsername());
         return "redirect:/kiosk/list"; //prg _ 게시물 전체 목록으로 리다이렉트
     }
 
@@ -67,7 +67,4 @@ public class BoardController {
     public List<BoardResponseDto> kioskBoardSearching(@RequestParam("keyword") String keyword){
         return boardService.searchPosts(keyword) ;
     }
-
-
-
 }

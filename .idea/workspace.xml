@@ -11,26 +11,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.2.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/study/security/Controller/BoardController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/study/security/Controller/BoardController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/study/security/Entity/User$UserBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/study/security/Entity/User$UserBuilder.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/study/security/Entity/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/study/security/Entity/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/study/security/Jwt/TokenProvider.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/study/security/Jwt/TokenProvider.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/study/security/Repository/BoardRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/study/security/Repository/BoardRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/study/security/Repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/study/security/Repository/UserRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/study/security/Service/BoardService.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/study/security/Service/BoardService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/study/security/Service/BoardServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/study/security/Service/BoardServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/BoardController.class.uniqueId3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/BoardRepository.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/BoardService.class.uniqueId2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/compileTransaction/stash-dir/BoardServiceImpl.class.uniqueId1" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/study/security/Controller/BoardController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/Controller/BoardController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/study/security/Entity/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/Entity/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/study/security/Entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/Entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/study/security/Jwt/TokenProvider.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/Jwt/TokenProvider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/study/security/Service/BoardService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/Service/BoardService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/study/security/Repository/BoardRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/Repository/BoardRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/study/security/Service/BoardServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/Service/BoardServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/study/security/dto/BoardRequestDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/dto/BoardRequestDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/study/security/dto/BoardResponseDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/dto/BoardResponseDto.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +111,7 @@
       <workItem from="1691833907274" duration="1922000" />
       <workItem from="1691847749063" duration="6601000" />
       <workItem from="1691855797311" duration="4340000" />
+      <workItem from="1691860156813" duration="20587000" />
     </task>
     <servers />
   </component>

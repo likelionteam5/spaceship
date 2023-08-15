@@ -1,6 +1,5 @@
 package study.security.dto;
 
-
 import lombok.*;
 
 @Data
