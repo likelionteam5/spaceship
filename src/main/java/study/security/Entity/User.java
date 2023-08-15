@@ -16,8 +16,6 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -35,21 +33,18 @@ public class User {
     private String gender;
     @Column(length = 20)
     private String phoneNumber;
-
     @Column(name = "activated")
     private boolean activated;
 
-
     // 각 뱃지 유무
     @Column
-    private Boolean KioskBadge=true ;
+    private Boolean KioskBadge ;
     @Column
-    private Boolean DeliveryBadge=true;
+    private Boolean DeliveryBadge;
     @Column
-    private Boolean SearchingBadge=true;
+    private Boolean SearchingBadge;
     @Column
-    private Boolean TrainBadge=true;
-
+    private Boolean TrainBadge;
 
     @ManyToMany
     @JoinTable(

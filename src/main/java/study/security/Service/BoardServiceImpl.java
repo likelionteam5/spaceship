@@ -17,11 +17,6 @@ import java.util.*;
 public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final UserRepository userRepository;
-
-//    private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
-//    private static final String AUTHORITIES_KEY = "auth";
-
-//    private Key key;
     @Override
     @Transactional
     public void savePost(BoardRequestDto dto, String userName) throws Exception {
@@ -44,11 +39,10 @@ public class BoardServiceImpl implements BoardService {
             throw new Exception("키오스크 게시글을 작성할 권한이 없습니다");
         }
     }
-
     @Transactional
     @Override
     public List<BoardResponseDto> getBoardList() {
-        List<Board> all = boardRepository.findAllByOrderByIdDesc(); //ID 내림차순으로 가져옴. _ 최신순
+        List<Board> all = boardRepository.findAllByOrderByIdDesc(); //ID 내림차순으로 가져옴_최신순
         List<BoardResponseDto>boardList = new ArrayList<>();
         for(Board board : all){
             BoardResponseDto resDto = BoardResponseDto.builder()
@@ -79,17 +73,15 @@ public class BoardServiceImpl implements BoardService {
         }
         return ResponseBoard;
     }
-
     @Transactional
     @Override
-    public BoardResponseDto getPost(Long id) {
+    public BoardResponseDto getPost(Long id){
         /*
         optional : board Wrapper이다. null point error 가 발생하지 않도록 함.
         null point error 가 발생할 수 있는 위치에 사용하여 npe를 막음.
          */
         Optional<Board> opt = boardRepository.findById(id);
         Board board = opt.get();
-
         return BoardResponseDto.builder()
                 .title(board.getTitle())
                 .content(board.getUsername())

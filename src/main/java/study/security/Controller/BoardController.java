@@ -21,6 +21,15 @@ public class BoardController {
     private final BoardServiceImpl boardService;
     private final TokenProvider tokenProvider;
 
+    //키오스크 게시물 작성
+    //_ 토큰에서 유저 파싱하고, 유저 정보에서 뱃지 여부 확인하는 코드 작성 해야함.
+    @PostMapping("")
+    public String saveBoard (@RequestBody BoardRequestDto reqDto,@RequestHeader(name="Authorization") String token) throws Exception {
+        String username = tokenProvider.getUsernameFromToken(token.substring(7));
+        boardService.savePost(reqDto,username);
+        return "redirect:/kiosk/list"; //prg _ 게시물 전체 목록으로 리다이렉트
+    }
+
     //전체 키오스크 목록
     @GetMapping("/list")
     public List<BoardResponseDto> kioskList(){
@@ -39,14 +48,6 @@ public class BoardController {
         return boardService.getPost(id);
     }
 
-    //키오스크 게시물 작성
-    //_ 토큰에서 유저 파싱하고, 유저 정보에서 뱃지 여부 확인하는 코드 작성 해야함.
-    @PostMapping("")
-    public String saveBoard (@RequestBody BoardRequestDto reqDto,@RequestHeader(name="Authorization") String token) throws Exception {
-        String username = tokenProvider.getUsernameFromToken(token.substring(7));
-        boardService.savePost(reqDto,username);
-        return "redirect:/kiosk/list"; //prg _ 게시물 전체 목록으로 리다이렉트
-    }
 
    //  키오스크 게시물 수정 _ 리다이렉트 생각해보기
 //    @PatchMapping("/{id}")
