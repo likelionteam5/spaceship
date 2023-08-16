@@ -15,6 +15,7 @@ import study.security.dto.UserDto;
 import java.io.IOException;
 
 @RestController
+@CrossOrigin(origins = "*")
 @RequestMapping("/api")
 public class UserController {
     private final UserService userService;
