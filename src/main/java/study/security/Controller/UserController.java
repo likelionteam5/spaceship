@@ -1,5 +1,6 @@
 package study.security.Controller;
 
+import org.hibernate.mapping.Join;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -8,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import study.security.Service.UserService;
+import study.security.dto.JoinDto;
 import study.security.dto.UserDto;
 import study.security.dto.MyPageDto;
 
@@ -29,8 +31,10 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> signup(@Valid @RequestBody UserDto userDto) {
-        return ResponseEntity.ok(userService.signup(userDto));
+
+    public ResponseEntity<UserDto> signup(@Valid @RequestBody JoinDto joinDto) {
+        return ResponseEntity.ok(userService.signup(joinDto));
+
     }
 
     @GetMapping("/user")
