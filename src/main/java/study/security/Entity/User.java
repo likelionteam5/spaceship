@@ -2,6 +2,7 @@ package study.security.Entity;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class User {
     private Long userId; //Id
 
     @Column(length = 25)
+    @Size(min=8)
     private String username; // 로그인 하는 아이디
     @Column(length = 200)
     private String password;

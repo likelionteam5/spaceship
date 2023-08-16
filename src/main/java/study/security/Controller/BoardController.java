@@ -3,23 +3,33 @@ package study.security.Controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 import study.security.Entity.Board;
+import study.security.Entity.Likey;
+import study.security.Entity.User;
 import study.security.Jwt.TokenProvider;
+import study.security.Repository.UserRepository;
 import study.security.Service.BoardServiceImpl;
+import study.security.Service.DislikeService;
+import study.security.Service.LikeyService;
 import study.security.dto.BoardRequestDto;
 import study.security.dto.BoardResponseDto;
+import study.security.dto.ResponseDto;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/kiosk")
+@CrossOrigin(origins = "*")
 public class BoardController {
 
     private final BoardServiceImpl boardService;
     private final TokenProvider tokenProvider;
+    private final UserRepository userRepository;
+    private final LikeyService likeyService;
+    private final DislikeService dislikeService;
 
     //키오스크 게시물 작성
     //_ 토큰에서 유저 파싱하고, 유저 정보에서 뱃지 여부 확인하는 코드 작성 해야함.
@@ -64,4 +74,23 @@ public class BoardController {
     public List<BoardResponseDto> kioskBoardSearching(@RequestParam("keyword") String keyword){
         return boardService.searchPosts(keyword) ;
     }
+    @PostMapping("/likely/{boardId}")
+    public ResponseDto addlike(@PathVariable("boardId") Long boardId, @RequestHeader("Authorization") String token) throws Exception {
+        String username = tokenProvider.getUsernameFromToken(token.substring(7));
+        Optional<User> opt = userRepository.findByUsername(username);
+        User user = opt.orElseThrow(()->new Exception("일치하는 user가 없습니다."));
+
+        return likeyService.addLike(boardId,user);
+    }
+
+    @PostMapping("/dislike/{boardId}")
+    public ResponseDto addDislike(@PathVariable("boardId") Long boardId, @RequestHeader("Authorization") String token) throws Exception {
+        String username = tokenProvider.getUsernameFromToken(token.substring(7));
+        Optional<User> opt = userRepository.findByUsername(username);
+        User user = opt.orElseThrow(()->new Exception("일치하는 user가 없습니다."));
+        
+        return dislikeService.addDislike(boardId,user);
+    }
+
+
 }

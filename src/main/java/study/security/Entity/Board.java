@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //데이터 베이스에 자동 키 생성 권한을 위임함.
@@ -27,11 +28,19 @@ public class Board {
     @Column(length = 15, nullable = false)
     private String location;
     //메서드에 @Builder 어노테이션을 붙이면 초기화 로직이 생성자 메서드 내부에 직접 명시되어 있어서 초기화 로직의 구체적인 내용을 더 명확하게 볼 수 있습니다.
-    @Builder
-    public Board(String username, String title, String content, String location) {
-        this.username = username; //
-        this.title = title;
-        this.content = content;
-        this.location = location;
-    }
+
+    @Builder.Default
+    private int likeCount=0;
+    @Builder.Default
+    private int dislikeCount=0;
+
+//    @Builder
+//    public Board(String username, String title, String content, String location) {
+//        this.username = username; //
+//        this.title = title;
+//        this.content = content;
+//        this.location = location;
+//        this.likeCount = 0;
+//        this.dislikeCount = 0;
+//    }
 }

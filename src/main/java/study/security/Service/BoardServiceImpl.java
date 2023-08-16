@@ -112,6 +112,9 @@ public class BoardServiceImpl implements BoardService {
         }
         return boardList;
     }
+
+    
+
 //    @Transactional
 //    // 보드 수정
 //    public void update(Long id, BoardRequestDto dto) {
