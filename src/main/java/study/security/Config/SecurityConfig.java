@@ -47,6 +47,13 @@ public class SecurityConfig {
                         .requestMatchers("/api/hello", "/api/login", "/api/signup").permitAll()
                         .requestMatchers("/security/role_user").hasAuthority("ROLE_USER")
                         .anyRequest().authenticated())
+                .logout(logout -> logout
+                        .logoutUrl("/apu/logout") // 로그아웃 URL 설정
+                        .logoutSuccessUrl("/api/hello") // 로그아웃 성공 후 이동할 URL 설정
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")) // 로그아웃 URL 설정
+
+
 
 
                 .apply(new JwtSecurityConfig(tokenProvider));

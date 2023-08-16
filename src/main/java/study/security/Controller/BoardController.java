@@ -1,7 +1,6 @@
 package study.security.Controller;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -9,15 +8,14 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import study.security.Jwt.TokenProvider;
 import study.security.Service.BoardService;
 import study.security.dto.BoardDTO;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -37,6 +35,7 @@ public class BoardController {
 
     // 글 목록 전체 조회
     @GetMapping("/list/")
+
     public ResponseEntity<?> findAll() {
         List<BoardDTO> boardDTOList = boardService.findAll();
         if(boardDTOList != null){
