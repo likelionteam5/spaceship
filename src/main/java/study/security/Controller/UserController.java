@@ -49,8 +49,8 @@ public class UserController {
         return ResponseEntity.ok(userService.getUserWithAuthorities(username));
     }
 
-    @GetMapping("/myPage/{user_id}") // 마이페이지
-    public MyPageDto getUserProfile(@PathVariable("user_id") Long userId) {
-        return userService.getUserProfile(userId);
+    @GetMapping("/myPage/{username}") // 마이페이지
+    public MyPageDto getUserProfile(@PathVariable String username) {
+        return userService.getUserProfile(username);
     }
 }

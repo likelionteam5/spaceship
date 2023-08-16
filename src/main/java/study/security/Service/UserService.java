@@ -82,8 +82,8 @@ public class UserService {
                         .orElseThrow(() -> new NotFoundMemberException("Member not found"))
         );
     }
-    public MyPageDto getUserProfile(Long userId) {
-        User user = userRepository.findByUserId(userId);
+    public MyPageDto getUserProfile(String username) {
+        User user = userRepository.findByUsername(username).get();
 
         if (user != null) {
             MyPageDto userProfileDTO = new MyPageDto();
