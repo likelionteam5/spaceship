@@ -37,9 +37,15 @@ public class BoardController {
 
     // 글 목록 전체 조회
     @GetMapping("/list/")
-    public ResponseEntity<List<BoardDTO>> findAll() {
+    public ResponseEntity<?> findAll() {
         List<BoardDTO> boardDTOList = boardService.findAll();
-        return ResponseEntity.ok(boardDTOList);
+        if(boardDTOList != null){
+            return ResponseEntity.ok(boardDTOList);
+        }
+        else {
+            String message = "조회된 게시물이 없습니다.";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
     }
 
     // 지역별 글 목록 조회
@@ -69,9 +75,14 @@ public class BoardController {
     }
     // 글 업데이트
     @PutMapping("/{id}")
-    public ResponseEntity<BoardDTO> update(@PathVariable Long id, @RequestBody BoardDTO updatedBoard) {
+    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody BoardDTO updatedBoard) {
         BoardDTO updated = boardService.updateBoard(id, updatedBoard);
-        return ResponseEntity.ok(updated);
+        if (updated != null)
+            return ResponseEntity.ok(updated);
+        else {
+            String message = "수정된 게시물이 없습니다.";
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
+        }
     }
     // 글 삭제
     @DeleteMapping("/{id}")
