@@ -34,7 +34,6 @@ public class User {
     private String gender;
     @Column(length = 20)
     private String phoneNumber;
-
     @Column(name = "activated")
     private boolean activated;
 

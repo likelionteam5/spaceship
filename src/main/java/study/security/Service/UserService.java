@@ -2,9 +2,13 @@ package study.security.Service;
 
 
 
+import com.google.auth.oauth2.GoogleCredentials;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.security.Entity.Authority;
@@ -17,8 +21,12 @@ import study.security.dto.UserDto;
 import study.security.exception.DuplicateMemberException;
 import study.security.exception.NotFoundMemberException;
 
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 @Service
+@Component
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
 
@@ -35,7 +43,7 @@ public class UserService {
     }
 
     @Transactional
-    public UserDto signup(JoinDto joinDto) {
+    public UserDto signup(JoinDto joinDto) throws IOException {
         if (userRepository.findOneWithAuthoritiesByUsername(joinDto.getUsername()).orElse(null) != null) {
             throw new DuplicateMemberException("이미 가입되어 있는 유저입니다.");
         }
@@ -43,6 +51,7 @@ public class UserService {
         if (!joinDto.getPassword().equals(joinDto.getCk_password())){
             throw new DuplicateMemberException("비밀번호가 다릅니다");
         }
+
 
         Authority authority = Authority.builder()
                 .authorityName("ROLE_USER")

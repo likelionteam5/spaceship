@@ -31,7 +31,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity<UserDto> signup(
-            @Valid @RequestBody JoinDto joinDto) {
+            @Valid @RequestBody JoinDto joinDto) throws IOException {
         return ResponseEntity.ok(userService.signup(joinDto));
     }
 

@@ -44,12 +44,14 @@ public class SecurityConfig {
 
 
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/hello", "/api/login", "/api/signup").permitAll()
+                        .requestMatchers("/api/hello", "/api/login", "/api/signup","/notification").permitAll()
                         .requestMatchers("/security/role_user").hasAuthority("ROLE_USER")
                         .anyRequest().authenticated())
 
+                .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.logoutUrl("/logout"))
 
                 .apply(new JwtSecurityConfig(tokenProvider));
+
 
 
         return http.build();
