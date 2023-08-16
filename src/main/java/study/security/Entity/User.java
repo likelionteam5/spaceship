@@ -34,9 +34,18 @@ public class User {
     private String gender;
     @Column(length = 20)
     private String phoneNumber;
-
     @Column(name = "activated")
     private boolean activated;
+
+    // 각 뱃지 유무
+    @Column
+    private Boolean KioskBadge ;
+    @Column
+    private Boolean DeliveryBadge;
+    @Column
+    private Boolean SearchingBadge;
+    @Column
+    private Boolean TrainBadge;
 
     @ManyToMany
     @JoinTable(
