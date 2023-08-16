@@ -11,7 +11,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
@@ -75,8 +77,11 @@ public class TokenProvider implements InitializingBean {
 
         User principal = new User(claims.getSubject(), "", authorities);
 
+
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
+
+    // 유저네임 가져오는 함수
 
     //토큰의 유효성 검증
     public boolean validateToken(String token) {
@@ -93,5 +98,17 @@ public class TokenProvider implements InitializingBean {
             logger.info("JWT 토큰이 잘못되었습니다.");
         }
         return false;
+    }
+
+    // TokenProvider 클래스에 getUserName 메서드 추가
+    public String getUserName(String token) {
+        Claims claims = Jwts
+                .parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+
+        return claims.getSubject();
     }
 }

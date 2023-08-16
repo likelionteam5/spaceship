@@ -1,6 +1,7 @@
 package study.security.Service;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import study.security.Entity.BaseEntity;
 import study.security.Entity.BoardEntity;
 import study.security.Repository.BoardRepository;
+import study.security.Repository.UserRepository;
 import study.security.dto.BoardDTO;
 
 import java.time.LocalDateTime;
@@ -21,10 +23,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BoardService {
     private final BoardRepository boardRepository;
-    public void write(BoardDTO boardDTO) {
-        BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO);
+
+    public void savePost(BoardDTO boardDTO, String user) {
+        BoardEntity boardEntity = BoardEntity.toSaveEntity(boardDTO, user);
         boardRepository.save(boardEntity);
     }
+
 
     public List<BoardDTO> findAll() {
         List<BoardEntity> boardEntityList = boardRepository.findAll();
@@ -99,9 +103,10 @@ public class BoardService {
                 boardRepository.findAll(PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id")));
 
         // 목록: id, writer, title, location, createdTime
-        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(), board.getBoardWriter(), board.getBoardTitle(), board.getLocation(), board.getCreatedTime()));
+        Page<BoardDTO> boardDTOS = boardEntities.map(board -> new BoardDTO(board.getId(), board.getBoardTitle(), board.getLocation(), board.getCreatedTime()));
         return boardDTOS;
     }
+
 
 
 }

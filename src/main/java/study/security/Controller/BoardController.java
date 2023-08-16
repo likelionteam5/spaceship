@@ -1,7 +1,7 @@
 package study.security.Controller;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -9,23 +9,32 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import study.security.Jwt.TokenProvider;
 import study.security.Service.BoardService;
 import study.security.dto.BoardDTO;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/train")
 public class BoardController {
     private final BoardService boardService;
-    // 글 작성
+    private final TokenProvider tokenProvider;
+
+    //키오스크 게시물 작성
+    //_ 토큰에서 유저 파싱하고, 유저 정보에서 뱃지 여부 확인하는 코드 작성 해야함.
     @PostMapping("/")
-    public ResponseEntity<BoardDTO> writeTrain(@RequestBody BoardDTO boardDTO){
-        boardService.write(boardDTO);
-        return ResponseEntity.ok().build();
+    public String saveBoard(@RequestBody BoardDTO reqDto, @RequestHeader("Authorization") String token) throws Exception {
+        String user = tokenProvider.getUserName(token.substring(7)); // "Bearer " 제거
+        boardService.savePost(reqDto, user);
+        return "redirect:/kiosk/list";
     }
+
     // 글 목록 전체 조회
     @GetMapping("/list/")
     public ResponseEntity<List<BoardDTO>> findAll() {
@@ -43,7 +52,6 @@ public class BoardController {
             String message = "조회된 게시물이 없습니다.";
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(message);
         }
-
 
     }
 
@@ -99,5 +107,11 @@ public class BoardController {
         // 생성한 Page 객체와 헤더 정보를 포함하는 ResponseEntity를 반환합니다.
         return new ResponseEntity<>(pagedBoardList, responseHeaders, HttpStatus.OK);
     }
+
+
+
+
+
+
 
 }

@@ -15,7 +15,7 @@ public class BoardEntity extends BaseEntity{
     private Long id;
 
     @Column(length = 20, nullable = false)
-    private String boardWriter;
+    private String userName;
 
     @Column(length = 30, nullable = false)
     private String boardTitle;
@@ -26,14 +26,16 @@ public class BoardEntity extends BaseEntity{
     @Column(length = 15, nullable = false)
     private String location;
 
-    public static BoardEntity toSaveEntity(BoardDTO boardDTO) {
+    public static BoardEntity toSaveEntity(BoardDTO boardDTO, String userName) {
         BoardEntity boardEntity = new BoardEntity();
-        boardEntity.setBoardWriter(boardDTO.getBoardWriter());
+        boardEntity.setUserName(userName);
         boardEntity.setBoardTitle(boardDTO.getBoardTitle());
         boardEntity.setBoardContents(boardDTO.getBoardContents());
         boardEntity.setLocation(boardDTO.getLocation());
 
         return boardEntity;
     }
+
+
 
 }
