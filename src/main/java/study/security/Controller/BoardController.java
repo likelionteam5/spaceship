@@ -88,9 +88,9 @@ public class BoardController {
         String username = tokenProvider.getUsernameFromToken(token.substring(7));
         Optional<User> opt = userRepository.findByUsername(username);
         User user = opt.orElseThrow(()->new Exception("일치하는 user가 없습니다."));
-        
         return dislikeService.addDislike(boardId,user);
     }
+
 
 
 }

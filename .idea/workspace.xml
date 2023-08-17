@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f32cddcb-cb7b-4b0f-aca3-42c280efd1d5" name="Changes" comment="" />
+    <list default="true" id="f32cddcb-cb7b-4b0f-aca3-42c280efd1d5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/study/security/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/study/security/Config/SecurityConfig.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -70,6 +74,9 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="study.security.Repository" />
+      <recent name="study.security.Entity" />
+      <recent name="study.security.Service" />
       <recent name="study.security.Controller" />
     </key>
   </component>
@@ -102,6 +109,8 @@
       <workItem from="1692077728078" duration="10544000" />
       <workItem from="1692088639152" duration="41000" />
       <workItem from="1692108461257" duration="6041000" />
+      <workItem from="1692163281027" duration="8686000" />
+      <workItem from="1692173447960" duration="6386000" />
     </task>
     <servers />
   </component>

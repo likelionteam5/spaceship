@@ -10,6 +10,7 @@ import study.security.Repository.UserRepository;
 import study.security.dto.BoardRequestDto;
 import study.security.dto.BoardResponseDto;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -31,6 +32,7 @@ public class BoardServiceImpl implements BoardService {
                 .title(dto.getTitle())
                 .content(dto.getContent())
                 .location(dto.getLocation())
+                .createDateTime(dto.getCreateDateTime())
                 .build();
         user.setKioskBadge(true); // 임의로 뱃지 부여
         if(user.getKioskBadge()){
