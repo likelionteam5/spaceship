@@ -74,7 +74,7 @@ public class BoardController {
     public List<BoardResponseDto> kioskBoardSearching(@RequestParam("keyword") String keyword){
         return boardService.searchPosts(keyword) ;
     }
-    @PostMapping("/likely/{boardId}")
+    @PostMapping("/likey/{boardId}")
     public ResponseDto addlike(@PathVariable("boardId") Long boardId, @RequestHeader("Authorization") String token) throws Exception {
         String username = tokenProvider.getUsernameFromToken(token.substring(7));
         Optional<User> opt = userRepository.findByUsername(username);

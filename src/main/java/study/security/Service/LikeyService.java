@@ -22,6 +22,7 @@ public class LikeyService {
 
     public ResponseDto addLike(Long boardId, User user){
         Board board = boardRepository.findById(boardId).get();
+
         if(!likeyRepository.existsByUserAndBoard(user,board)){
             board.setLikeCount(board.getLikeCount()+1);
             likeyRepository.save(new Likey(user,board));
