@@ -28,6 +28,10 @@ public class UserDto {
 
     @NotNull
     @Size(max = 20)
+    private String ck_password;
+
+    @NotNull
+    @Size(max = 20)
     private String name;
     @NotNull
     @Size(max = 10)

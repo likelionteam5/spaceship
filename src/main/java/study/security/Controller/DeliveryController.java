@@ -10,6 +10,7 @@ import study.security.Repository.DeliveryRepository;
 import study.security.Service.DeliveryService;
 import study.security.dto.DeliveryDto;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,11 +24,12 @@ public class DeliveryController {
 
     @PostMapping // 게시물 작성
     public ResponseEntity<Delivery> createDelivery(@RequestBody DeliveryDto deliveryDto) {
-        Delivery delivery = new Delivery();
-        deliveryDto.toDeliveryEntity(delivery);
+        deliveryDto.setBoardCreatedTime(LocalDate.now()); // 생성 시간 설정
+        Delivery delivery = deliveryDto.toDeliveryEntity(new Delivery());
         Delivery createdDelivery = deliveryService.createDelivery(delivery);
         return new ResponseEntity<>(createdDelivery, HttpStatus.CREATED);
     }
+
 
 
     @GetMapping("/list") // 전체 게시물 조회

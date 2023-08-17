@@ -95,6 +95,4 @@ public class UserService {
             return null; // 사용자가 없는 경우에 대한 처리
         }
     }
-
-
 }

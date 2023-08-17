@@ -4,12 +4,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 @Builder
 public class JoinDto {
     @Column(length = 25)
@@ -33,5 +33,4 @@ public class JoinDto {
     @Column(length = 20)
     @NotBlank(message = "전화번호를 입력해주세요")
     private String phoneNumber;
-
 }
