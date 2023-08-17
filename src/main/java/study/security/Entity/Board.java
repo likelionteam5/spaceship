@@ -2,6 +2,7 @@ package study.security.Entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -32,7 +33,7 @@ public class Board {
     private String location;
     //메서드에 @Builder 어노테이션을 붙이면 초기화 로직이 생성자 메서드 내부에 직접 명시되어 있어서 초기화 로직의 구체적인 내용을 더 명확하게 볼 수 있습니다.
 
-    @Column
+    @CreationTimestamp
     private LocalDateTime createDateTime;
 
     @Builder.Default
@@ -49,5 +50,6 @@ public class Board {
 //        this.location = location;
 //        this.likeCount = 0;
 //        this.dislikeCount = 0;
+//        this.
 //    }
 }
