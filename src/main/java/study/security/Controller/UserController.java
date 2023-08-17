@@ -1,6 +1,6 @@
 package study.security.Controller;
 
-import org.hibernate.mapping.Join;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +31,7 @@ public class UserController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserDto> signup(
-            @Valid @RequestBody JoinDto joinDto) throws IOException {
+    public ResponseEntity<UserDto> signup(@Valid @RequestBody JoinDto joinDto) throws IOException {
         return ResponseEntity.ok(userService.signup(joinDto));
     }
 

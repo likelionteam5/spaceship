@@ -49,7 +49,6 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
 
 
-
                 .logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer.logoutUrl("/logout").permitAll())
 
                 .apply(new JwtSecurityConfig(tokenProvider));
